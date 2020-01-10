@@ -5,6 +5,7 @@
 from typing import List,Optional,NamedTuple
 from enum import Enum
 
+
 class Day(Enum):
     MON = 1
     TUE = 2
@@ -56,7 +57,7 @@ class Teacher:
     pass
 
 class Student:
-    def __init__(self, id: ID, name: PersonName):
+    def __init__(self, name: PersonName):
         self.id = Student.generate_id()
         self.name = name(PersonName)
 
@@ -85,9 +86,8 @@ class StudentRepository:
     pass
 
 class Lesson:
-    def __init__(self, id:str, course_id:str,term:str,teacher_id:str,students:List[id]):
+    def __init__(self, id:ID, course_id:ID,term:Date,teacher_id:ID,students:List[ID]):
         self.teacher_id=teacher_id
-
         self.id = id
         self.course_id=course_id
         self.term=term
@@ -104,7 +104,11 @@ class CourseGrade:
     pass
 
 
+
 class LessonManager:
+
+
+
 
     def __init__(self, lessons:List[Lesson],teacher_handle:TeacherRepository,students_handle:StudentRepository,courses_handle:CourseRepository):
 
@@ -113,6 +117,8 @@ class LessonManager:
         self.__students_handle=students_handle
         self.__courses_handle=courses_handle
 
+       # Math = Lesson(1, 1, 3, 1 ,1) cos sprawdzic
+
 
     def add_lesson(self,course_id: ID, term: Date, teacher_id: ID, student_id: List[ID])->None:
 
@@ -120,13 +126,15 @@ class LessonManager:
 
         pass
 
-    def get_student_timetable(self, student_id: ID)-> List[CourseGrade]:
+    def get_student_timetable(self, student_id: ID)-> List[Lesson]:
 
-        return
+        pass
 
     #def view_teacher_timetable(teacher_id: ID)-> None
 
-    #def view_student_timetable(student_id: ID)-> None
+    def view_student_timetable(student_id: ID)-> None:
+
+        pass
 
     #def get_teacher_timetable(teacher_id: ID): List[Lesson]
 
@@ -146,6 +154,9 @@ class GradeManager:
     #def get_student_grades(student_id: ID) -> List[CourseGrade]
 
     #def get_teacher_grades(teacher_id: ID) -> List[CourseGrade]
+
+
+
 
 
 
