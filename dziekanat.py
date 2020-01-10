@@ -3,7 +3,7 @@
 
 
 from typing import List,Optional,NamedTuple
-
+from enum import Enum
 class PersonName(NamedTuple):
     name: str
     surname: str
@@ -61,6 +61,7 @@ class StudentRepository:
 class Lesson:
     def __init__(self, id:str, course_id:str,term:str,teacher_id:str,students:List[id]):
         self.teacher_id=teacher_id
+
         self.id = id
         self.course_id=course_id
         self.term=term
@@ -83,8 +84,9 @@ class LessonManager:
         self.__students_handle=students_handle
         self.__courses_handle=courses_handle
 
-    #def add_lesson(course_id: ID, term: Date, teacher_id: ID, student_id: List[ID]):
-
+    def add_lesson(self,course_id: ID, term: Date, teacher_id: ID, student_id: List[ID])->None:
+        #self.__lessons.append(Lesson(id=self.__lessons[-1].id+1 if self.__lessons else 1,course_id=course_id,term=term,teacher_id=teacher_id,students=student_id))
+        pass
     #def get_student_timetable(student_id: ID, student_repo: StudentRepository:List[CourseGrade]):
 
     #def view_teacher_timetable(teacher_id: ID:int , teacher_repo:TeacherRepository)-> None
