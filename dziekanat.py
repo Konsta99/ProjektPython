@@ -4,16 +4,6 @@
 
 from typing import List,Optional,NamedTuple
 from enum import Enum
-class PersonName(NamedTuple):
-    name: str
-    surname: str
-
-class Date(NamedTuple):
-    hour:str
-    #day:
-
-class ID(NamedTuple):
-    ID: int
 
 class Day(Enum):
     MON = 1
@@ -22,6 +12,18 @@ class Day(Enum):
     THU = 4
     FRI = 5
 
+class PersonName(NamedTuple):
+    name: str
+    surname: str
+
+class Date(NamedTuple):
+    hour:str
+    day:Day
+
+class ID(NamedTuple):
+    ID: int
+
+
 
 
 class Course:
@@ -29,23 +31,39 @@ class Course:
         self.id = id
         self.name = name
 
+    @classmethod
+    def generate_id_course(cls, name: str) -> str:
+        return ''.join([c for c in name if c != ' ']) + '_' + str(len(name))
+
+    pass
 
 class Teacher:
     def __init__(self, id: ID, name:PersonName) :
         self.id = id
         self.name = name
-    pass
 
+
+    @classmethod
+    def generate_id_teacher(cls, name: str) -> str:
+        return ''.join([c for c in name if c != ' ']) + '_' + str(len(name))
+
+    pass
 
 class Student:
     def __init__(self, id: ID, name: PersonName):
         self.id = id
         self.name = name
+
+    @classmethod
+    def generate_id(cls, name: str) -> str:
+
+        return ''.join([c for c in name if c != ' ']) + '_' + str(len(name))
+
     pass
 
 class CourseRepository:
     def __init__(self, courses : List[Course]) :
-        self.courses = courses[Course]
+        self.courses = courses
         pass
 
 class TeacherRepository:
@@ -77,24 +95,32 @@ class CourseGrade:
         self.student_id=student_id
     pass
 
+
 class LessonManager:
+
     def __init__(self, lessons:List[Lesson],teacher_handle:TeacherRepository,students_handle:StudentRepository,courses_handle:CourseRepository):
+
         self.__lessons=lessons
         self.__teacher_handle=teacher_handle
         self.__students_handle=students_handle
         self.__courses_handle=courses_handle
 
+
     def add_lesson(self,course_id: ID, term: Date, teacher_id: ID, student_id: List[ID])->None:
-        #self.__lessons.append(Lesson(id=self.__lessons[-1].id+1 if self.__lessons else 1,course_id=course_id,term=term,teacher_id=teacher_id,students=student_id))
+
+        self.__lessons.append(Lesson(id=self.__lessons[-1].id+1 if self.__lessons else 1,course_id=course_id,term=term,teacher_id=teacher_id,students=student_id))
+
         pass
-    #def get_student_timetable(student_id: ID, student_repo: StudentRepository:List[CourseGrade]):
 
-    #def view_teacher_timetable(teacher_id: ID:int , teacher_repo:TeacherRepository)-> None
+    def get_student_timetable(self, student_id: ID)-> List[CourseGrade]:
 
-    #def view_student_timetable(student_id: ID, student_repo: StudentRepository)-> None
+        return
 
-    #def get_teacher_timetable(teacher_id: ID: int, teacher_repo: TeacherRepository): List[CourseGrade]
+    #def view_teacher_timetable(teacher_id: ID)-> None
 
+    #def view_student_timetable(student_id: ID)-> None
+
+    #def get_teacher_timetable(teacher_id: ID): List[Lesson]
 
 class GradeManager:
     def __init__(self, course_grades:List[CourseGrade],teacher_handle:TeacherRepository,students_handle:StudentRepository,courses_handle:CourseRepository):
@@ -103,7 +129,7 @@ class GradeManager:
         self.__students_handle=students_handle
         self.__courses_handle=courses_handle
 
-    # add_course_grade(course_id: ID, grade: float, student_id: ID, teacher_id: ID):
+    #def add_course_grade(course_id: ID, grade: float, student_id: ID, teacher_id: ID):
 
     #def view_student_grades(student_id: ID) -> None
 
@@ -112,6 +138,10 @@ class GradeManager:
     #def get_student_grades(student_id: ID) -> List[CourseGrade]
 
     #def get_teacher_grades(teacher_id: ID) -> List[CourseGrade]
+
+
+
+
 
 
 
