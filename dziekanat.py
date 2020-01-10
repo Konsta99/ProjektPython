@@ -55,7 +55,7 @@ class Student:
         self.name = name
 
     @classmethod
-    def generate_id(cls, name: str) -> str:
+    def generate_id_student(cls, name: str) -> str:
 
         return ''.join([c for c in name if c != ' ']) + '_' + str(len(name))
 
