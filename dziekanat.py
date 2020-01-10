@@ -30,7 +30,9 @@ class Course:
     def __init__(self, name:str) :
         self.id=Course.generate_id()
         self.name = name
+
     highest_id:ID=0
+
     @classmethod
     def generate_id(cls) -> ID:
         Course.highest_id+=1
@@ -38,27 +40,32 @@ class Course:
 
     pass
 
-class Teacher:
-    def __init__(self, id: ID, name:PersonName) :
-        self.id = id
-        self.name = name
 
+
+class Teacher:
+    def __init__(self, name:PersonName) :
+        self.id = Course.generate_id()
+        self.name = name(PersonName)
+
+    highest_id: ID = 0
 
     @classmethod
-    def generate_id_teacher(cls, name: str) -> str:
-        return ''.join([c for c in name if c != ' ']) + '_' + str(len(name))
-
+    def generate_id(cls) -> ID:
+        Teacher.highest_id += 1
+        return Teacher.highest_id
     pass
 
 class Student:
     def __init__(self, id: ID, name: PersonName):
-        self.id = id
-        self.name = name
+        self.id = Student.generate_id()
+        self.name = name(PersonName)
+
+    highest_id: ID = 0
 
     @classmethod
-    def generate_id_student(cls, name: str) -> str:
-
-        return ''.join([c for c in name if c != ' ']) + '_' + str(len(name))
+    def generate_id(cls) -> ID:
+        Student.highest_id += 1
+        return Student.highest_id
 
     pass
 
@@ -139,6 +146,12 @@ class GradeManager:
     #def get_student_grades(student_id: ID) -> List[CourseGrade]
 
     #def get_teacher_grades(teacher_id: ID) -> List[CourseGrade]
+
+
+
+
+
+
 
 
 
