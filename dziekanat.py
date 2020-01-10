@@ -27,13 +27,14 @@ class ID(NamedTuple):
 
 
 class Course:
-    def __init__(self, id: ID, name:str) :
-        self.id = id
+    def __init__(self, name:str) :
+        self.id=Course.generate_id()
         self.name = name
-
+    highest_id:ID=0
     @classmethod
-    def generate_id_course(cls, name: str) -> str:
-        return ''.join([c for c in name if c != ' ']) + '_' + str(len(name))
+    def generate_id(cls) -> ID:
+        Course.highest_id+=1
+        return Course.highest_id
 
     pass
 
