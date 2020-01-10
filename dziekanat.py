@@ -3,17 +3,8 @@
 
 
 from typing import List,Optional,NamedTuple
-
-class PersonName(NamedTuple):
-    name: str
-    surname: str
-
-class Date(NamedTuple):
-    hour:str
-    #day:
-
-class ID(NamedTuple):
-    ID: int
+from enum import Enum
+from abc import ABC
 
 class Day(Enum):
     MON = 1
@@ -21,6 +12,19 @@ class Day(Enum):
     WED = 3
     THU = 4
     FRI = 5
+
+class PersonName(NamedTuple):
+    name: str
+    surname: str
+
+class Date(NamedTuple):
+    hour:str
+    day: Day
+
+class ID(NamedTuple):
+    ID: int
+
+
 
 
 
@@ -68,7 +72,7 @@ class Lesson:
     pass
 
 
-class CourseGrade:
+class CourseGrade(ABC):
     def __init__(self,course_id:Optional[str], grade:float,student_id:Optional[str],teacher_id:Optional[str]) -> None:
         self.teacher_id=teacher_id
         self.grade = grade
@@ -76,7 +80,7 @@ class CourseGrade:
         self.student_id=student_id
     pass
 
-class LessonManager:
+class LessonManager(ABC):
     def __init__(self, lessons:List[Lesson],teacher_handle:TeacherRepository,students_handle:StudentRepository,courses_handle:CourseRepository):
         self.__lessons=lessons
         self.__teacher_handle=teacher_handle
@@ -85,13 +89,13 @@ class LessonManager:
 
     #def add_lesson(course_id: ID, term: Date, teacher_id: ID, student_id: List[ID]):
 
-    #def get_student_timetable(student_id: ID, student_repo: StudentRepository:List[CourseGrade]):
+    #def get_student_timetable(student_id: ID -> List[Lesson]:
 
-    #def view_teacher_timetable(teacher_id: ID:int , teacher_repo:TeacherRepository)-> None
+    #def view_teacher_timetable(teacher_id: ID:int)-> -> None:
 
-    #def view_student_timetable(student_id: ID, student_repo: StudentRepository)-> None
+    #def view_student_timetable(student_id: ID) -> None
 
-    #def get_teacher_timetable(teacher_id: ID: int, teacher_repo: TeacherRepository): List[CourseGrade]
+    #def get_teacher_timetable(teacher_id: ID: int) -> List[Lesson]
 
 
 class GradeManager:
@@ -101,7 +105,7 @@ class GradeManager:
         self.__students_handle=students_handle
         self.__courses_handle=courses_handle
 
-    # add_course_grade(course_id: ID, grade: float, student_id: ID, teacher_id: ID):
+    #add_course_grade(course_id: ID, grade: float, student_id: ID, teacher_id: ID):
 
     #def view_student_grades(student_id: ID) -> None
 
