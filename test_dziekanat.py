@@ -6,20 +6,29 @@ from dziekanat import Course,Teacher, Student
 
 class Test_Course(unittest.TestCase):
     def test_init(self):
-        course = Course(id="RB01", name="Matematyka")
+        course = Course(name="Matematyka")
         self.assertEqual("Matematyka", course.name)
+
+    def test_generate_id(self):
+        self.assertEqual(1, Course.generate_id())
+
 
 class Test_Teacher(unittest.TestCase):
     def test_init(self):
-        teacher = Teacher(id="111", name="Adam Kowalski")
-        self.assertEqual("111", teacher.id)
-        self.assertEqual("Adam Kowalski", teacher.name)
+        teacher = Teacher(name ="Jan Kowalski")
+        self.assertEqual("Jan Kowalski", teacher.name)
+
+    def test_generate_id(self):
+        self.assertEqual(1, Teacher.generate_id())
 
 class Test_Student(unittest.TestCase):
     def test_init(self):
-        student = Student(id="302915", name="Konrad Stalmach")
-        self.assertEqual("302915", student.id)
+        student = Student(name="Konrad Stalmach")
         self.assertEqual("Konrad Stalmach", student.name)
+
+    def test_generate_id(self):
+        self.assertEqual(1, Student.generate_id())
+
 
 
 if __name__ == '__main__':
