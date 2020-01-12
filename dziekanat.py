@@ -140,8 +140,8 @@ class LessonManager:
                         print(Course.name)
                 print(lesson.term)
 
-    def get_student_timetable(self, student_id: ID)-> List[Lesson]:
-        pass
+    #def get_student_timetable(self, student_id: ID)-> List[Lesson]:
+
 
     def view_student_timetable(self, student_id: ID)-> None:
 
@@ -168,15 +168,38 @@ class GradeManager:
         self.__students_handle=students_handle
         self.__courses_handle=courses_handle
 
-    #def add_course_grade(course_id: ID, grade: float, student_id: ID, teacher_id: ID):
+    def add_course_grade(self, course_id: ID, grade: float, student_id: ID, teacher_id: ID) -> None:
+        self.__lessons.append(Course(course_id=course_id, grade=grade, students=student_id,  teacher_id=teacher_id))
 
-    #def view_student_grades(student_id: ID) -> None
+
+
+    def view_student_grades(student_id: ID) -> None:
+
+        for student in self.__students_handle.students:
+            if Student.id == student_id:
+                print(student.name)
+       
+        for grade in self.__course_grades__:
+            if Course.students == student_id:
+                for Course in self.__courses_handle__.courses:
+                    if lesson.course_id == Course.id:
+                        print(Course.name)
+                print(grade.grade)
+
+
+
+
 
     #def view_teacher_grades(teacher_id: ID)-> None
 
     #def get_student_grades(student_id: ID) -> List[CourseGrade]
 
     #def get_teacher_grades(teacher_id: ID) -> List[CourseGrade]
+
+
+
+
+
 
 
 
