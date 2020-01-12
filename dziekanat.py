@@ -117,7 +117,6 @@ class LessonManager:
         self.__students_handle=students_handle
         self.__courses_handle=courses_handle
 
-       # Math = Lesson(1, 1, 3, 1 ,1) cos sprawdzic
 
 
     def add_lesson(self,course_id: ID, term: Date, teacher_id: ID, student_id: List[ID])->None:
@@ -126,17 +125,41 @@ class LessonManager:
 
         pass
 
+
+    # def get_teacher_timetable(teacher_id: ID): List[Lesson]
+
+    def view_teacher_timetable(self, teacher_id: ID)-> None:
+
+        for teacher in self.__teacher_handle.teachers:
+            if Teacher.id == teacher_id:
+                print(teacher.name)
+        for lesson in self.__lessons__:
+            if Lesson.teacher_id == teacher_id:
+                for Course in self.__courses_handle__.courses:
+                    if lesson.course_id == Course.id:
+                        print(Course.name)
+                print(lesson.term)
+
     def get_student_timetable(self, student_id: ID)-> List[Lesson]:
-
         pass
 
-    #def view_teacher_timetable(teacher_id: ID)-> None
+    def view_student_timetable(self, student_id: ID)-> None:
 
-    def view_student_timetable(student_id: ID)-> None:
+        for student in self.__students_handle.students:
+            if Student.id == student_id:
+                print(student.name)
+        for lesson in self.__lessons__:
+            if Lesson.students == student_id:
+                for Course in self.__courses_handle__.courses:
+                    if lesson.course_id == Course.id:
+                        for teacher in self.__teacher_handle.teachers:
+                            if Teacher.id == teacher_id:
+                                print(teacher.name)
+                        print(Course.name)
+                print(lesson.term)
 
-        pass
 
-    #def get_teacher_timetable(teacher_id: ID): List[Lesson]
+
 
 class GradeManager:
     def __init__(self, course_grades:List[CourseGrade],teacher_handle:TeacherRepository,students_handle:StudentRepository,courses_handle:CourseRepository):
@@ -154,11 +177,6 @@ class GradeManager:
     #def get_student_grades(student_id: ID) -> List[CourseGrade]
 
     #def get_teacher_grades(teacher_id: ID) -> List[CourseGrade]
-
-
-
-
-
 
 
 
