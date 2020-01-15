@@ -46,7 +46,7 @@ class Course:
 class Teacher:
     def __init__(self, name:PersonName) :
         self.id = Course.generate_id()
-        self.name = name(PersonName)
+        self.name = name
 
     highest_id: ID = 0
 
@@ -59,7 +59,7 @@ class Teacher:
 class Student:
     def __init__(self, name: PersonName):
         self.id = Student.generate_id()
-        self.name = name(PersonName)
+        self.name = name
 
     highest_id: ID = 0
 
@@ -108,8 +108,6 @@ class CourseGrade:
 class LessonManager:
 
 
-
-
     def __init__(self, lessons:List[Lesson],teacher_handle:TeacherRepository,students_handle:StudentRepository,courses_handle:CourseRepository):
 
         self.__lessons=lessons
@@ -126,37 +124,50 @@ class LessonManager:
         pass
 
 
-    # def get_teacher_timetable(teacher_id: ID): List[Lesson]
+    def get_teacher_timetable(self, teacher_id: ID)-> List[Lesson]:
+
+        teacher_timetable=[]
+
+        for lesson in self.__lessons:
+            if lesson.teacher_id == teacher_id:
+                teacher_timetable.append(lesson)
+
+        return teacher_timetable
+
+
+
 
     def view_teacher_timetable(self, teacher_id: ID)-> None:
 
         for teacher in self.__teacher_handle.teachers:
-            if Teacher.id == teacher_id:
+            if teacher.id == teacher_id:
                 print(teacher.name)
-        for lesson in self.__lessons__:
-            if Lesson.teacher_id == teacher_id:
-                for Course in self.__courses_handle__.courses:
+        for lesson in self.__lessons:
+            if lesson.teacher_id == teacher_id:
+                for Course in self.__courses_handle.courses:
                     if lesson.course_id == Course.id:
                         print(Course.name)
                 print(lesson.term)
 
-    #def get_student_timetable(self, student_id: ID)-> List[Lesson]:
+
+    def get_student_timetable(self, student_id: ID)-> List[Lesson]:
+
+        student_timetable = []
+
+        for lesson in self.__lessons:
+            for student in lesson.students:
+
+                if student_id == student:
+                    student_timetable.append(lesson)
+
+        return student_timetable
+
 
 
     def view_student_timetable(self, student_id: ID)-> None:
 
-        for student in self.__students_handle.students:
-            if Student.id == student_id:
-                print(student.name)
-        for lesson in self.__lessons__:
-            if Lesson.students == student_id:
-                for Course in self.__courses_handle__.courses:
-                    if lesson.course_id == Course.id:
-                        for teacher in self.__teacher_handle.teachers:
-                            if Teacher.id == teacher_id:
-                                print(teacher.name)
-                        print(Course.name)
-                print(lesson.term)
+        print (self.get_student_timetable(student_id=student_id))
+
 
 
 
@@ -178,7 +189,7 @@ class GradeManager:
         for student in self.__students_handle.students:
             if Student.id == student_id:
                 print(student.name)
-       
+
         for grade in self.__course_grades__:
             if Course.students == student_id:
                 for Course in self.__courses_handle__.courses:
@@ -195,14 +206,6 @@ class GradeManager:
     #def get_student_grades(student_id: ID) -> List[CourseGrade]
 
     #def get_teacher_grades(teacher_id: ID) -> List[CourseGrade]
-
-
-
-
-
-
-
-
 
 
 
