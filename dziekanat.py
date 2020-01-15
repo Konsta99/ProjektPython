@@ -186,16 +186,7 @@ class GradeManager:
 
     def view_student_grades(student_id: ID) -> None:
 
-        for student in self.__students_handle.students:
-            if Student.id == student_id:
-                print(student.name)
-
-        for grade in self.__course_grades__:
-            if Course.students == student_id:
-                for Course in self.__courses_handle__.courses:
-                    if lesson.course_id == Course.id:
-                        print(Course.name)
-                print(grade.grade)
+       pass
 
 
 
