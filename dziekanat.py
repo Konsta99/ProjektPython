@@ -43,6 +43,7 @@ class Course:
 
 
 
+
 class Teacher:
     def __init__(self, name:PersonName) :
         self.id = Course.generate_id()
@@ -68,12 +69,18 @@ class Student:
         Student.highest_id += 1
         return Student.highest_id
 
+    def __repr__(self):
+        return Student.highest_id
+
     pass
 
 class CourseRepository:
     def __init__(self, courses : List[Course]) :
         self.courses = courses
         pass
+
+
+
 
 class TeacherRepository:
     def __init__(self, teachers:List[Teacher]) :
@@ -95,9 +102,6 @@ class Lesson:
 
 
 
-
-
-
 class CourseGrade:
     def __init__(self,course_id:ID, grade:float,student_id:ID,teacher_id:ID) -> None:
         self.teacher_id=teacher_id
@@ -109,8 +113,6 @@ class CourseGrade:
 
 
 class LessonManager:
-
-
     def __init__(self, lessons:List[Lesson],teacher_handle:TeacherRepository,students_handle:StudentRepository,courses_handle:CourseRepository):
 
         self.__lessons=lessons
@@ -202,8 +204,9 @@ class GradeManager:
         teacher_grades = []
 
         for grade in self.__course_grades:
-            for teacher in grade.teacher_id:
-                if teacher_id == teacher:
+
+                if teacher_id == grade.teacher_id:
+
                     teacher_grades.append(grade)
 
         return teacher_grades
@@ -241,6 +244,15 @@ class GradeManager:
         #             if lesson.course_id == Course.id:
         #                 print(Course.name)
         #         print(grade.grade)
+
+
+
+
+
+
+
+
+
 
 
 
