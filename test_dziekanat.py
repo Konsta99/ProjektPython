@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from dziekanat import Course,Teacher, Student
+from dziekanat import Course, Teacher, Student, PersonName
+
 
 class TestCourse(unittest.TestCase):
     def test_init(self):
@@ -15,8 +16,10 @@ class TestCourse(unittest.TestCase):
 
 class TestTeacher(unittest.TestCase):
     def test_init(self):
-        teacher = Teacher(name ="Jan Kowalski")
-        self.assertEqual("Jan Kowalski", teacher.name)
+        teacher = PersonName(name ="Jan",surname = 'Kowalski')
+        self.assertEqual("JanKowalski", teacher.name + teacher.surname)
+
+
 
     def test_generate_id(self):
         self.assertEqual(1, Teacher.generate_id())
@@ -25,11 +28,17 @@ class TestTeacher(unittest.TestCase):
 
 class TestStudent(unittest.TestCase):
     def test_init(self):
-        student = Student(name="Konrad Stalmach")
-        self.assertEqual("Konrad Stalmach", student.name)
+
+        student = PersonName(name="Konrad", surname='Stalmach')
+        self.assertEqual("KonradStalmach", student.name + student.surname)
 
     def test_generate_id(self):
         self.assertEqual(1, Student.generate_id())
 
+# class TestStudentRepository(unittest.TestCase):
+
+
+
 if __name__ == '__main__':
     unittest.main()
+
