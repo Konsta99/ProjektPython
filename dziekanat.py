@@ -32,12 +32,12 @@ class Course:
         self.id=Course.generate_id()
         self.name = name
 
-    highest_id:ID=0
+    c_highest_id:ID=0
 
     @classmethod
     def generate_id(cls) -> ID:
-        Course.highest_id+=1
-        return Course.highest_id
+        Course.c_highest_id+=1
+        return Course.c_highest_id
 
     pass
 
@@ -48,12 +48,12 @@ class Teacher:
         self.id = Course.generate_id()
         self.name = name
 
-    highest_id: ID = 0
+    t_highest_id: ID = 0
 
     @classmethod
     def generate_id(cls) -> ID:
-        Teacher.highest_id += 1
-        return Teacher.highest_id
+        Teacher.t_highest_id += 1
+        return Teacher.t_highest_id
     pass
 
 class Student:
@@ -61,12 +61,12 @@ class Student:
         self.id = Student.generate_id()
         self.name = name
 
-    highest_id: ID = 0
+    s_highest_id: ID = 0
 
     @classmethod
     def generate_id(cls) -> ID:
-        Student.highest_id += 1
-        return Student.highest_id
+        Student.s_highest_id += 1
+        return Student.s_highest_id
 
     pass
 
@@ -202,8 +202,8 @@ class GradeManager:
         teacher_grades = []
 
         for grade in self.__course_grades:
-            for teacher in grade.teacher_id:
-                if teacher_id == teacher:
+
+                if teacher_id == grade.teacher_id:
                     teacher_grades.append(grade)
 
         return teacher_grades

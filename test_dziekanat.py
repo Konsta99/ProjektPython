@@ -1,35 +1,49 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import unittest
+import dziekanat as dz
+class TestCreating(unittest.TestCase):
 
-from dziekanat import Course,Teacher, Student
+
+    def Test_lesson(self):
+        students = []
+        for id in range(1, 10):
+            person_name = "Ben" + str(id)
+            person_surname = "Student" + str(id)
+            t = dz.Student(dz.PersonName(person_name, person_surname))
+            students.append(t)
+        course=dz.Course("Matematyka")
+
+        person_name = "John" + str(1)
+        person_surname = "Snow" + str(1)
+        t = dz.Teacher(dz.PersonName(person_name, person_surname))
+        zajecia=dz.Lesson(dz.ID(1),course_id=course.id,term=dz.Date("13:00",day=dz.Day["MON"]),teacher_id=t.id,students=[i.id for i in students])
+        self.assertEqual(1 ,zajecia.teacher_id)
+
 
 class TestCourse(unittest.TestCase):
     def test_init(self):
-        course = Course(name="Matematyka")
+        course = dz.Course(name="Matematyka")
         self.assertEqual("Matematyka", course.name)
+        self.assertEqual(1,course.id)
 
-    def test_generate_id(self):
-        self.assertEqual(1, Course.generate_id())
+
 
 
 class TestTeacher(unittest.TestCase):
     def test_init(self):
-        teacher = Teacher(name ="Jan Kowalski")
-        self.assertEqual("Jan Kowalski", teacher.name)
-
-    def test_generate_id(self):
-        self.assertEqual(1, Teacher.generate_id())
-        Teacher.generate_id()
-        self.assertEqual(3, Teacher.generate_id())
+        teacher = dz.Teacher(dz.PersonName(name ="Jan",surname=" Kowalski"))
+        self.assertEqual("Jan", teacher.name.name)
+        self.assertEqual(1, dz.Teacher.generate_id())
+        self.assertEqual(2, dz.Teacher.generate_id())
 
 class TestStudent(unittest.TestCase):
     def test_init(self):
-        student = Student(name="Konrad Stalmach")
-        self.assertEqual("Konrad Stalmach", student.name)
+        student = dz.Student(dz.PersonName(name="Konrad" ,surname="Stalmach"))
+        self.assertEqual("Konrad", student.name.name)
+        self.assertEqual(1,student.id)
 
-    def test_generate_id(self):
-        self.assertEqual(1, Student.generate_id())
+
 
 if __name__ == '__main__':
     unittest.main()
