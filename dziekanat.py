@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-from typing import List,Optional,NamedTuple
+from typing import List,NamedTuple
 from enum import Enum
 
 
@@ -92,11 +92,14 @@ class Lesson:
         self.course_id=course_id
         self.term=term
         self.students = students
-    pass
+
+
+
+
 
 
 class CourseGrade:
-    def __init__(self,course_id:Optional[str], grade:float,student_id:Optional[str],teacher_id:Optional[str]) -> None:
+    def __init__(self,course_id:ID, grade:float,student_id:ID,teacher_id:ID) -> None:
         self.teacher_id=teacher_id
         self.grade = grade
         self.course_id=course_id
@@ -115,6 +118,12 @@ class LessonManager:
         self.__students_handle=students_handle
         self.__courses_handle=courses_handle
 
+    # def __repr__(self):
+    #     return "Zajecia ID "+ str(self.__lessons) + "    Teacher ID:" + str(self.__teacher_handle) +"     Studenci ID:" + str(self.__students_handle) +    "       ID przedmiotu:"+str(self.__courses_handle)
+    # pass
+
+
+
 
 
     def add_lesson(self,course_id: ID, term: Date, teacher_id: ID, student_id: List[ID])->None:
@@ -122,6 +131,7 @@ class LessonManager:
         self.__lessons.append(Lesson(id=self.__lessons[-1].id+1 if self.__lessons else 1,course_id=course_id,term=term,teacher_id=teacher_id,students=student_id))
 
         pass
+
 
 
     def get_teacher_timetable(self, teacher_id: ID)-> List[Lesson]:
@@ -150,13 +160,14 @@ class LessonManager:
                 print(lesson.term)
 
 
+
+
     def get_student_timetable(self, student_id: ID)-> List[Lesson]:
 
         student_timetable = []
 
         for lesson in self.__lessons:
             for student in lesson.students:
-
                 if student_id == student:
                     student_timetable.append(lesson)
 
@@ -170,39 +181,66 @@ class LessonManager:
 
 
 
-
-
 class GradeManager:
+
     def __init__(self, course_grades:List[CourseGrade],teacher_handle:TeacherRepository,students_handle:StudentRepository,courses_handle:CourseRepository):
+
         self.__course_grades=course_grades
         self.__teacher_handle=teacher_handle
         self.__students_handle=students_handle
         self.__courses_handle=courses_handle
 
+
     def add_course_grade(self, course_id: ID, grade: float, student_id: ID, teacher_id: ID) -> None:
-        self.__lessons.append(Course(course_id=course_id, grade=grade, students=student_id,  teacher_id=teacher_id))
+
+        self.__course_grades.append(CourseGrade(course_id = course_id, grade = grade, student_id = student_id, teacher_id = teacher_id))
 
 
 
-    def view_student_grades(student_id: ID) -> None:
+    def get_teacher_grades(self, teacher_id: ID) -> List[CourseGrade]:
 
-       pass
+        teacher_grades = []
 
+        for grade in self.__course_grades:
+            for teacher in grade.teacher_id:
+                if teacher_id == teacher:
+                    teacher_grades.append(grade)
 
-
-
-
-    #def view_teacher_grades(teacher_id: ID)-> None
-
-    #def get_student_grades(student_id: ID) -> List[CourseGrade]
-
-    #def get_teacher_grades(teacher_id: ID) -> List[CourseGrade]
+        return teacher_grades
 
 
+    def view_teacher_grades(self, teacher_id: ID)-> None:
+        print (self.get_teacher_grades(teacher_id=teacher_id))
+
+
+    def get_student_grades(self, student_id: ID) -> List[CourseGrade]:
+
+        student_grades = []
+
+        for grade in self.__course_grades:
+            for student in grade.student_id:
+                if student_id == student:
+                    student_grades.append(grade)
+
+        return student_grades
 
 
 
+    def view_student_grades(self, student_id: ID) -> None:
+        print(self.get_student_grades(student_id=student_id))
 
+
+
+        # for student in self.__students_handle.students:
+        #     if Student.id == student_id:
+        #         print(student.name)
+        #
+        # for grade in self.__course_grades__:
+        #     if Course.students == student_id:
+        #         for Course in self.__courses_handle__.courses:
+        #             if lesson.course_id == Course.id:
+        #                 print(Course.name)
+        #         print(grade.grade)
 
 
 
