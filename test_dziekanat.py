@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import unittest
 import dziekanat as dz
+from dziekanat import Course, Teacher, Student, PersonName
+
 class TestCreating(unittest.TestCase):
 
 
@@ -17,8 +19,11 @@ class TestCreating(unittest.TestCase):
         person_name = "John" + str(1)
         person_surname = "Snow" + str(1)
         t = dz.Teacher(dz.PersonName(person_name, person_surname))
+
         t2=dz.Teacher(dz.PersonName("Jan","pawel"))
         zajecia=dz.Lesson(dz.ID(1),course_id=course.id,term=dz.Date("13:00",day=dz.Day["MON"]),teacher_id=t.id,students=[i.id for i in students])
+
+
         self.assertEqual(1 ,zajecia.teacher_id)
         self.assertEqual(1,zajecia.course_id)
         self.assertEqual('MON',zajecia.term.day.name)
@@ -30,7 +35,6 @@ class TestCreating(unittest.TestCase):
         #lessons.add_lesson(course_id=course.id, term=dz.Date("12:00",day=dz.Day["TUE"]), teacher_id=t.id, student_id=[i.id for i in students])
 
 
-from dziekanat import Course, Teacher, Student, PersonName
 
 
 
@@ -68,11 +72,19 @@ class TestStudent(unittest.TestCase):
         Teacher.generate_id()
         self.assertEqual(3, Teacher.generate_id())
 
-class TestStudent(unittest.TestCase):
+class TestStudents(unittest.TestCase):
     def test_init(self):
 
         student = PersonName(name="Konrad", surname='Stalmach')
         self.assertEqual("KonradStalmach", student.name + student.surname)
+
+class TestLessonManager(unittest.TestCase):
+    def test_init(self):
+
+        zajecia = dz.Lesson(dz.ID(1), course_id=dz.ID(1), term=dz.Date("13:00",day=dz.Day["MON"]), teacher_id=dz.ID(1),students=[dz.ID(1)])
+        self.assertEqual(1, zajecia.course_id.ID)
+
+
 
 
 
@@ -82,4 +94,3 @@ class TestStudent(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
