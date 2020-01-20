@@ -141,7 +141,7 @@ class LessonManager:
         teacher_timetable=[]
 
         for lesson in self.__lessons:
-            if lesson.teacher_id == teacher_id:
+            if lesson.teacher_id == teacher_id.ID:
                 teacher_timetable.append(lesson)
 
         return teacher_timetable
@@ -152,10 +152,10 @@ class LessonManager:
     def view_teacher_timetable(self, teacher_id: ID)-> None:
 
         for teacher in self.__teacher_handle.teachers:
-            if teacher.id == teacher_id:
+            if teacher.id == teacher_id.ID:
                 print(teacher.name)
         for lesson in self.__lessons:
-            if lesson.teacher_id == teacher_id:
+            if lesson.teacher_id == teacher_id.ID:
                 for Course in self.__courses_handle.courses:
                     if lesson.course_id == Course.id:
                         print(Course.name)
@@ -170,7 +170,7 @@ class LessonManager:
 
         for lesson in self.__lessons:
             for student in lesson.students:
-                if student_id == student:
+                if student_id.ID == student:
                     student_timetable.append(lesson)
 
         return student_timetable
@@ -187,15 +187,15 @@ class GradeManager:
 
     def __init__(self, course_grades:List[CourseGrade],teacher_handle:TeacherRepository,students_handle:StudentRepository,courses_handle:CourseRepository):
 
-        self.__course_grades=course_grades
-        self.__teacher_handle=teacher_handle
-        self.__students_handle=students_handle
-        self.__courses_handle=courses_handle
+        self.course_grades=course_grades
+        self.teacher_handle=teacher_handle
+        self.students_handle=students_handle
+        self.courses_handle=courses_handle
 
 
-    def add_course_grade(self, course_id: ID, grade: float, student_id: ID, teacher_id: ID) -> None:
+    def add_course_grade(self, course_id: ID, grade: float,student_id: ID, teacher_id: ID) -> None:
 
-        self.__course_grades.append(CourseGrade(course_id = course_id, grade = grade, student_id = student_id, teacher_id = teacher_id))
+        self.course_grades.append(CourseGrade(course_id = course_id, grade=grade, student_id = student_id, teacher_id = teacher_id))
 
 
 
@@ -203,9 +203,9 @@ class GradeManager:
 
         teacher_grades = []
 
-        for grade in self.__course_grades:
+        for grade in self.course_grades:
 
-                if teacher_id == grade.teacher_id:
+                if teacher_id.ID == grade.teacher_id:
 
                     teacher_grades.append(grade)
 
@@ -220,9 +220,9 @@ class GradeManager:
 
         student_grades = []
 
-        for grade in self.__course_grades:
+        for grade in self.course_grades:
 
-                if student_id == grade.student_id:
+                if student_id.ID == grade.student_id:
                     student_grades.append(grade)
 
         return student_grades
