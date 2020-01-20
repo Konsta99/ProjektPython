@@ -32,7 +32,7 @@ class TestCreating(unittest.TestCase):
         courses=dz.CourseRepository([course])
         lessons=dz.LessonManager([zajecia], teacher_handle=tch,students_handle=students_repo,courses_handle=courses)
         self.assertEqual(2,t2.id)
-        #lessons.add_lesson(course_id=course.id, term=dz.Date("12:00",day=dz.Day["TUE"]), teacher_id=t.id, student_id=[i.id for i in students])
+        lessons.add_lesson(course_id=course.id, term=dz.Date("12:00", day=dz.Day["TUE"]), teacher_id=t.id, student_id=[i.id for i in students])
 
 
 

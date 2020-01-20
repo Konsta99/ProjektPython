@@ -130,7 +130,7 @@ class LessonManager:
 
     def add_lesson(self,course_id: ID, term: Date, teacher_id: ID, student_id: List[ID])->None:
 
-        self.__lessons.append(Lesson(id=self.__lessons[-1].id+1 if self.__lessons else 1,course_id=course_id,term=term,teacher_id=teacher_id,students=student_id))
+        self.__lessons.append(Lesson(id=ID(self.__lessons[-1].id.ID+1 if self.__lessons else 1),course_id=course_id,term=term,teacher_id=teacher_id,students=student_id))
 
         pass
 
