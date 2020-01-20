@@ -5,20 +5,29 @@ import dziekanat as dz
 class TestCreating(unittest.TestCase):
 
 
-    def Test_lesson(self):
+    def test_lesson(self):
+
         students = []
-        for id in range(1, 10):
+        for id in range(1, 11):
             person_name = "Ben" + str(id)
             person_surname = "Student" + str(id)
             t = dz.Student(dz.PersonName(person_name, person_surname))
             students.append(t)
         course=dz.Course("Matematyka")
-
         person_name = "John" + str(1)
         person_surname = "Snow" + str(1)
         t = dz.Teacher(dz.PersonName(person_name, person_surname))
+        t2=dz.Teacher(dz.PersonName("Jan","pawel"))
         zajecia=dz.Lesson(dz.ID(1),course_id=course.id,term=dz.Date("13:00",day=dz.Day["MON"]),teacher_id=t.id,students=[i.id for i in students])
         self.assertEqual(1 ,zajecia.teacher_id)
+        self.assertEqual(1,zajecia.course_id)
+        self.assertEqual('MON',zajecia.term.day.name)
+        tch=dz.TeacherRepository([t,t2])
+        students_repo=dz.StudentRepository(students)
+        courses=dz.CourseRepository([course])
+        lessons=dz.LessonManager([zajecia], teacher_handle=tch,students_handle=students_repo,courses_handle=courses)
+        self.assertEqual(2,t2.id)
+        #lessons.add_lesson(course_id=course.id, term=dz.Date("12:00",day=dz.Day["TUE"]), teacher_id=t.id, student_id=[i.id for i in students])
 
 
 from dziekanat import Course, Teacher, Student, PersonName

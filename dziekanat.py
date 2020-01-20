@@ -5,7 +5,6 @@
 from typing import List,NamedTuple
 from enum import Enum
 
-
 class Day(Enum):
     MON = 1
     TUE = 2
@@ -24,53 +23,53 @@ class Date(NamedTuple):
 class ID(NamedTuple):
     ID: int
 
+c_highest_id:ID=0
 
 
 
 class Course:
-    def __init__(self, name:str) :
-        self.id=Course.generate_id()
-        self.name = name
+        def __init__(self, name:str) :
 
-    c_highest_id:ID=0
+            self.name = name
+            self.id= self.generate_course_id()
+        c_highest_id:ID=0
 
-    @classmethod
-    def generate_id(cls) -> ID:
-        Course.c_highest_id+=1
-        return Course.c_highest_id
+        @staticmethod
+        def generate_course_id() -> ID:
+            Course.c_highest_id+=1
+            return Course.c_highest_id
 
-    pass
 
 
 
 
 class Teacher:
     def __init__(self, name:PersonName) :
-        self.id = Course.generate_id()
+        self.id = self.generate_id()
         self.name = name
 
     t_highest_id: ID = 0
 
-    @classmethod
-    def generate_id(cls) -> ID:
+
+    @staticmethod
+    def generate_id() -> ID:
         Teacher.t_highest_id += 1
         return Teacher.t_highest_id
     pass
 
 class Student:
     def __init__(self, name: PersonName):
-        self.id = Student.generate_id()
+        self.id = self.generate_students_id()
         self.name = name
 
     s_highest_id: ID = 0
 
-    @classmethod
-    def generate_id(cls) -> ID:
+    @staticmethod
+    def generate_students_id() -> ID:
         Student.s_highest_id += 1
         return Student.s_highest_id
 
-    def __repr__(self):
-        return Student.highest_id
+
 
     pass
 
@@ -104,6 +103,7 @@ class Lesson:
 
 class CourseGrade:
     def __init__(self,course_id:ID, grade:float,student_id:ID,teacher_id:ID) -> None:
+
         self.teacher_id=teacher_id
         self.grade = grade
         self.course_id=course_id
@@ -221,8 +221,8 @@ class GradeManager:
         student_grades = []
 
         for grade in self.__course_grades:
-            for student in grade.student_id:
-                if student_id == student:
+
+                if student_id == grade.student_id:
                     student_grades.append(grade)
 
         return student_grades
